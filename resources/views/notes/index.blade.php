@@ -21,11 +21,14 @@
                     <div class="bg-white p-4 shadow rounded">
                         <h3 class="font-bold">{{ $note->title }}</h3>
                         <p>{{ $note->content }}</p>
-                        <form action="{{ route('notes.destroy', $note) }}" method="POST" class="mt-2">
-                            @csrf
-                            @method('DELETE')
-                            <button class="text-red-600 text-sm">Eliminar</button>
-                        </form>
+                        <div class="mt-2 flex gap-4">
+                            <a href="{{ route('notes.edit', $note) }}" class="text-blue-600 text-sm">Editar</a>
+                            <form id="delete-form-{{ $note->id }}" action="{{ route('notes.destroy', $note) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" onclick="confirmDelete('delete-form-{{ $note->id }}')" class="text-red-600 text-sm">Eliminar</button>
+                            </form>
+                        </div>
                     </div>
                 @empty
                     <p>No tienes notas todavía.</p>
